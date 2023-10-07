@@ -292,3 +292,5 @@ Provide the following code (replace your token in the file):
 
 ```
 Then close the file.
+
+We have automated the process using a workaround with the following bash scrip: [bin/generate_tfrc_credentials](bin/generate_tfrc_credentials) 
