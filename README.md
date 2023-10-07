@@ -252,9 +252,43 @@ If you lose this file, you lose knowing the state of your infrastructure.
 
 `.terraform` directory contains binaries of Terraform providers.
 
-#### Difficulty found while using terraform - 1
+## Difficulty found while using terraform - 1
 
 The naming convention of the s3 buckets did not allow upper case letters so when we did the `terraform apply --auto-approve` command we got an error
 stating that the name was invalid so we had to go and change the random string module code configuration parameters in order to reflect this, we used the following documentation: 
 
 [random_string schema](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string#schema)
+
+## Difficulty found while using terraform - 2 
+
+We had an issue with Terraform Cloud and Gitpod Workspace that when attempting to run `terraform login` command, it will launch bash wiswig to generate a token.
+However it does not work as expected in Gitpod VSCode in the browser.
+
+The workaround is to manually generate a token in Terraform Cloud:
+
+```
+https://app.terraform.io/app/settings/tokens?source=terraform-login
+
+```
+
+Then create the file manually here:
+
+```sh
+touch /home/gitpod/.terraform.d/credentials.tfrc.json
+open /home/gitpod/.terraform.d/credentials.tfrc.json
+
+```
+
+Provide the following code (replace your token in the file):
+
+```json
+{
+  "credentials": {
+    "app.terraform.io": {
+      "token": "your-terraform-cloud-token"
+    }
+  }
+}
+
+```
+Then close the file.
