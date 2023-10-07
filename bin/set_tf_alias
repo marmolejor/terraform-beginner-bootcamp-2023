@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
 # Check if the alias is already present
 grep -q "alias tf=\"terraform\"" ~/.bash_profile
@@ -11,4 +11,4 @@ else
 fi
 
 # Optionally, you can immediately apply the changes in the current session:
-# source ~/.bash_profile
+source ~/.bash_profile
