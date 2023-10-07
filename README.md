@@ -251,3 +251,10 @@ If you lose this file, you lose knowing the state of your infrastructure.
 ### Terraform Directory
 
 `.terraform` directory contains binaries of Terraform providers.
+
+#### Difficulty found while using terraform - 1
+
+The naming convention of the s3 buckets did not allow upper case letters so when we did the `terraform apply --auto-approve` command we got an error
+stating that the name was invalid so we had to go and change the random string module code configuration parameters in order to reflect this, we used the following documentation: 
+
+[random_string schema](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string#schema)
