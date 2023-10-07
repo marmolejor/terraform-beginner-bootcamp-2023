@@ -222,6 +222,14 @@ This will run a plan and pass the changeset to be executed by Terraform. Apply s
 
 If we want to automate this approval we can use the "auto-approve" flag, eg.: `terraform apply --auto-approve`
 
+#### Terraform Destroy
+
+`terraform destroy`
+
+This will destroy resources that are specified in the cofiguration file.
+
+You can also use the auto approve flag to skip the approve prompt, eg. `terraform destroy --auto-approve`
+
 ### Terraform Lock Files
 
 `.terraform.lock.hcl` contains the locked versioning for the providers or modules that should be used with this project.
@@ -243,3 +251,10 @@ If you lose this file, you lose knowing the state of your infrastructure.
 ### Terraform Directory
 
 `.terraform` directory contains binaries of Terraform providers.
+
+#### Difficulty found while using terraform - 1
+
+The naming convention of the s3 buckets did not allow upper case letters so when we did the `terraform apply --auto-approve` command we got an error
+stating that the name was invalid so we had to go and change the random string module code configuration parameters in order to reflect this, we used the following documentation: 
+
+[random_string schema](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string#schema)
