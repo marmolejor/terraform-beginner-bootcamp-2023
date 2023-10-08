@@ -2,36 +2,36 @@
 
 ## Table of Contents
 
-  * [Semantic Versioning :mage:](#semantic-versioning--mage-)
-  * [Install the Terraform CLI](#install-the-terraform-cli)
-    + [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
-    + [Considerations for Linux Distribution](#considerations-for-linux-distribution)
-    + [Refactoring into Bash Scripts](#refactoring-into-bash-scripts)
-      - [Shebang Considerations](#shebang-considerations)
-      - [Execution Considerations](#execution-considerations)
-      - [Linux Permissions Considerations](#linux-permissions-considerations)
-    + [Github Lifecycle (Before, Init, Command)](#github-lifecycle--before--init--command-)
-    + [Working with Env Vars](#working-with-env-vars)
-      - [env command](#env-command)
-      - [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
-      - [Printing Vars](#printing-vars)
-      - [Scoping of Env Vars](#scoping-of-env-vars)
-      - [Persisitng Env Vars in Gitpod](#persisitng-env-vars-in-gitpod)
-    + [AWS CLI Installation](#aws-cli-installation)
-  * [Terraform Basics](#terraform-basics)
-    + [Terraform Registry](#terraform-registry)
-    + [Terraform Console](#terraform-console)
-      - [Terraform Init](#terraform-init)
-      - [Terraform Plan](#terraform-plan)
-      - [Terraform Apply](#terraform-apply)
-      - [Terraform Destroy](#terraform-destroy)
-    + [Terraform Lock Files](#terraform-lock-files)
-    + [Terraform State Files](#terraform-state-files)
-    + [Terraform Directory](#terraform-directory)
-  * [Difficulty found while using terraform - 1](#difficulty-found-while-using-terraform---1)
-  * [Difficulty found while using terraform - 2](#difficulty-found-while-using-terraform---2)
+- [Semantic Versioning](#semantic-versioning)
+- [Install the Terraform CLI](#install-the-terraform-cli)
+  * [Considerations with the Terraform CLI changes](#considerations-with-the-terraform-cli-changes)
+  * [Considerations for Linux Distribution](#considerations-for-linux-distribution)
+  * [Refactoring into Bash Scripts](#refactoring-into-bash-scripts)
+    + [Shebang Considerations](#shebang-considerations)
+    + [Execution Considerations](#execution-considerations)
+    + [Linux Permissions Considerations](#linux-permissions-considerations)
+- [Gitpod Lifecycle](#gitpod-lifecycle)
+- [Working with Env Vars](#working-with-env-vars)
+  * [env command](#env-command)
+    + [Setting and Unsetting Env Vars](#setting-and-unsetting-env-vars)
+  * [Printing Vars](#printing-vars)
+  * [Scoping of Env Vars](#scoping-of-env-vars)
+  * [Persisitng Env Vars in Gitpod](#persisitng-env-vars-in-gitpod)
+- [AWS CLI Installation](#aws-cli-installation)
+- [Terraform Basics](#terraform-basics)
+  * [Terraform Registry](#terraform-registry)
+  * [Terraform Console](#terraform-console)
+    + [Terraform Init](#terraform-init)
+    + [Terraform Plan](#terraform-plan)
+    + [Terraform Apply](#terraform-apply)
+    + [Terraform Destroy](#terraform-destroy)
+  * [Terraform Lock Files](#terraform-lock-files)
+  * [Terraform State Files](#terraform-state-files)
+  * [Terraform Directory](#terraform-directory)
+- [Difficulty found while using terraform - 1](#difficulty-found-while-using-terraform---1)
+- [Difficulty found while using terraform - 2](#difficulty-found-while-using-terraform---2)
 
-## Semantic Versioning :mage:
+## Semantic Versioning
  
 This project is going to utilize semantic versioning for its tagging.
 [semver.org](https://semver.org/)
@@ -127,15 +127,17 @@ chmod 744 ./bin/install_terraform_cli.sh
 https://en.wikipedia.org/wiki/Chmod
 
 
-### Github Lifecycle (Before, Init, Command)
+## Gitpod Lifecycle
+
+'before', 'init' and 'command':
 
 We need to be careful when using the Init because it will not return if we restart an existing workspace.
 
 https://www.gitpod.io/docs/configure/workspaces/tasks
 
-### Working with Env Vars
+## Working with Env Vars
 
-#### env command
+### env command
 
 We can list out all Environment Variables (Env Vars) using the  `env` command.
 
@@ -163,17 +165,17 @@ HELLO = `world`
 echo $HELLO
 ```
 
-#### Printing Vars
+### Printing Vars
 
 We can print an env var using echo eg. `echo $HELLO`
 
-#### Scoping of Env Vars
+### Scoping of Env Vars
 
 When you open up a new bash terminals in VSCode it will not be aware of env vars that you have set in another window.
 
 If you want to Env Vars to persist across all future bash terminals thay are open you need to set env vars in your bash profile. eg. `.bash_profile`
 
-#### Persisitng Env Vars in Gitpod
+### Persisitng Env Vars in Gitpod
 
 We can persist env vars into gitpos by storing them in Gitpod Secret Storage.
 
@@ -187,7 +189,7 @@ All future workspaces launched will set the env vars for all bash terminals open
 You can also set env vars in the `.gitpod.yml` but this can only contain non-sensitive env vars.
 
 
-### AWS CLI Installation
+## AWS CLI Installation
 
 AWS CLI is instaled for the project via the bash script [`./bin/install_aws_cli`](./bin/install_aws_cli)
 
