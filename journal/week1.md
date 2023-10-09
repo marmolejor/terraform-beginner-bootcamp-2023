@@ -111,4 +111,26 @@ Here's the order of precedence for variable definitions in Terraform, starting f
 It's essential to be aware of this order, especially when troubleshooting or when the same variable is defined in multiple places. Knowing which source has the highest precedence can help you determine the effective value of a variable during Terraform operations.
 
 
+## Dealing With Configuration Drift
+
+## What happens if you lose your state file¡
+
+If you lose your statefile, you most likely have to tear down all your cloud infrastructure manually.
+
+You can use terraform import but it won't work for all cloud resources. You need to check terraform providers documentation for which resources support import.
+
+### Fix Missing Resources with Terraform Import
+
+`terraform import aws_s3_bucket.bucket bucket-name`
+
+[Terraform Import](https://developer.hashicorp.com/terraform/cli/import)
+[AWS S3 Bucket Import](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_bucket.html#import)
+
+### Fix Manual Configuration
+
+If someone goes and delete or modifies cloud resources manually through ClickOps.
+
+If we run Terraform plan with an attempt to put our infrastructure configuration back into the expected state fixing configuration drift.
+
+
 
