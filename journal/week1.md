@@ -16,3 +16,99 @@ PROJECT_ROOT/
 ```
 
 [Standard Module Structure](https://developer.hashicorp.com/terraform/language/modules/develop/structure)
+
+## Terraform and Input Variables
+
+## Terraform Cloud Variables
+
+In terraform we can set two kinds of variables:
+- Environment variables: those you would set in your bash terminal eg. AWS credentials.
+- Terraform varuables: those you would normally set in your tfvars file.
+
+We can set Terraform Cloud variables to be sensitive so they are not shown visibly in the UI.
+
+### Loading Terraform Input Variables
+
+[Terraform Input Variables](https://developer.hashicorp.com/terraform/language/values/variables)
+
+### var flag
+We can use `-var` flag to set an input variable or override a variable in the tfvars file eg. `terraform -var user-uuid="my-user_id"`
+
+### var-file flag 
+
+In Terraform, the -var-file flag is used to specify a file from which to load Terraform variables. This allows you to maintain sets of variables in separate files, which can be especially useful for managing different environments (like staging, production, development, etc.) or for organizing configurations more cleanly.
+
+When you use Terraform's apply, plan, or other relevant commands, you can provide the -var-file flag to indicate which file Terraform should use to source its variable values.
+
+Here's an example:
+
+```
+terraform apply -var-file="staging.tfvars"
+
+```
+
+In this example, Terraform would apply the configuration using variables defined in the staging.tfvars file.
+
+Some key things to note about -var-file:
+
+Default terraform.tfvars: By default, Terraform will automatically load variables from a file named terraform.tfvars or any file with a .auto.tfvars extension. If you use -var-file, it's in addition to this automatic loading, not in place of it.
+
+Multiple Files: You can use the -var-file flag multiple times in a single command to load variables from multiple files. They are loaded in the order they're provided on the command line, so if there are overlapping variables, the last one takes precedence.
+
+Overriding Variables: Variables specified directly with the -var flag or set as environment variables will override those set in a var-file.
+
+The -var-file flag provides flexibility in how you manage and organize your Terraform configurations, enabling better structure and separation of variable values based on different needs or environments.
+
+### terraform.tfvars
+
+This is the default file to load in terraform variables in bulk.
+
+### auto.tfvars
+
+In Terraform, files with the `.tfvars` or `.auto.tfvars` extension are used to define variable values. The special thing about `.auto.tfvars` files is that Terraform will automatically load them without requiring the `-var-file` flag. This automatic loading is a feature that works both in the local Terraform CLI as well as in Terraform Cloud.
+
+Here's how `.auto.tfvars` works specifically in Terraform Cloud:
+
+1. **Automatic Loading**: When you initiate a run in Terraform Cloud (either via VCS integration, API, or UI), Terraform Cloud will automatically pick up any `.auto.tfvars` files in the workspace's root directory and use the variable values defined within.
+
+2. **Workspace-Specific Variables**: In Terraform Cloud's web UI, you can define workspace-specific variables. If there's a conflict between a variable defined in the web UI and one in an `.auto.tfvars` file, the value set in the web UI will take precedence.
+
+3. **Version Control Integration**: If you have linked a VCS repository (like GitHub, GitLab, etc.) to your Terraform Cloud workspace, every time you push changes, Terraform Cloud will initiate a run. During this run, it will automatically load the values from `.auto.tfvars` files.
+
+4. **Sensitive Variables**: You can mark certain variables as sensitive in Terraform Cloud's UI. This ensures that the values of these variables are never shown in logs or outputs. If you have a variable declared as sensitive in the UI, and the same variable is also present in an `.auto.tfvars` file, the sensitive marking still applies.
+
+5. **File Ordering**: If you have multiple `.auto.tfvars` files, Terraform loads them in alphabetical order. If variables are defined in multiple files, the value from the last file loaded will take precedence.
+
+Using `.auto.tfvars` files with Terraform Cloud is a convenient way to provide default values for your Terraform variables. However, be aware of the potential overlap with values set in the Terraform Cloud UI and ensure that your configuration behaves as expected.
+
+### Order of terraform variables
+
+In Terraform, several methods can be used to set variable values, and they have a specific order of precedence. When the same variable is defined in multiple places, the source with the highest precedence will determine the final value.
+
+Here's the order of precedence for variable definitions in Terraform, starting from the highest:
+
+1. **CLI `terraform apply` Options (`-var` and `-var-file` flags)**:
+   - Variables set with `-var` flags when running `terraform apply` or other relevant Terraform commands.
+   - If you specify multiple `-var-file` flags, they are loaded in the order they're provided, with later files overwriting previous ones.
+   - Variables from `-var` flags take precedence over `-var-file`.
+
+2. **Environment Variables**:
+   - Terraform will read environment variables that start with `TF_VAR_`. For instance, the `TF_VAR_instance_type` environment variable sets the `instance_type` Terraform variable.
+
+3. **The `terraform.tfvars` and `terraform.tfvars.json` files**:
+   - If present, Terraform automatically loads variables from these files. If both files are present and contain a definition for the same variable, the variable from `terraform.tfvars.json` will take precedence.
+
+4. **`.auto.tfvars` and `.auto.tfvars.json` files**:
+   - Any file with the `.auto.tfvars` or `.auto.tfvars.json` extension is loaded automatically, in alphabetical order. If variables are defined in multiple such files, and those variables conflict, the last file's value will take precedence.
+   - If the same variable is defined in both an `.auto.tfvars` file and a `terraform.tfvars` or `terraform.tfvars.json` file, the `.auto.tfvars` value takes precedence.
+
+5. **Variable Defaults**:
+   - If you've set a default value for a variable in the variable declaration within your Terraform configuration (using the `default` attribute), that value will be used if no other method sets the variable.
+
+6. **Terraform Cloud/Enterprise Workspace Variables**:
+   - If you're using Terraform Cloud or Terraform Enterprise, you can define workspace-specific variables through the web UI or API. These variables have the lowest precedence and can be overridden by any of the other methods mentioned.
+
+It's essential to be aware of this order, especially when troubleshooting or when the same variable is defined in multiple places. Knowing which source has the highest precedence can help you determine the effective value of a variable during Terraform operations.
+
+
+
