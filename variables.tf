@@ -7,3 +7,10 @@ variable "user_uuid" {
   }
 }
 
+variable "bucket_name" {
+type = string
+validation {
+condition = can(regex("^([a-z0-9]{1}[a-z0-9-]{1,61}[a-z0-9]{1})$", var.bucket_name))
+error_message = "Invalid bucket name, please check https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html for more details."
+}
+}
