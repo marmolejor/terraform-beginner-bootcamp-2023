@@ -113,7 +113,7 @@ It's essential to be aware of this order, especially when troubleshooting or whe
 
 ## Dealing With Configuration Drift
 
-## What happens if you lose your state file¡
+## What happens if you lose your state file
 
 If you lose your statefile, you most likely have to tear down all your cloud infrastructure manually.
 
