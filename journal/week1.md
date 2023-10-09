@@ -177,3 +177,64 @@ module "terrahouse_aws"{
 
 [Modules Sources](https://developer.hashicorp.com/terraform/language/modules/sources#github)
 
+## Considerations when using ChatGPT to write Terraform
+
+LLMs such as ChatGPT may not be trained on the latest documentation about Terraform, so it might likely produce older examples that could be
+deprecated, often afecting providers. Be careful with this.
+
+
+## Working with files in Terraform
+
+### Fileexists Function
+
+This is a built in terraform function to check the existence of a file, eg.:
+
+```tf
+> fileexists("${path.module}/hello.txt")
+true
+
+```
+
+[fileexists function documentation](https://developer.hashicorp.com/terraform/language/functions/fileexists)
+
+### filemd5 
+
+In Terraform, the filemd5 function is used to compute the MD5 hash of a file's contents. This can be useful for various reasons, such as ensuring the integrity of a file, generating unique names based on file content, or detecting changes in files.
+
+When you pass a file path to the filemd5 function, it reads the file, calculates its MD5 hash, and then returns the hash as a hexadecimal string.
+
+Here's a basic usage example:
+
+```
+output "example_file_md5" {
+  value = filemd5("path/to/example/file.txt")
+}
+```
+
+In this example, Terraform will read the contents of file.txt, compute its MD5 hash, and output the result.
+
+A practical use case might be when you're uploading files to an S3 bucket and want to set the etag property (which is based on the file's MD5 hash) or want to create a unique object key based on the file's content to ensure cache invalidation when the file changes.
+
+[filemd5 Documentation](https://developer.hashicorp.com/terraform/language/functions/filemd5)
+
+### Path Variable
+
+In terraform there is a special variable called `path` that allows to reference local paths:
+- path.module = get the path for the current module
+- path.root = get the path for the root module
+[Special Path Variable](https://developer.hashicorp.com/terraform/language/expressions/references#filesystem-and-workspace-info)
+
+We used this in this example code from our module's `main.tf` where we used the:
+
+```tf
+
+#https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/s3_object
+resource "aws_s3_object" "index_html" {
+  bucket = aws_s3_bucket.static_website.bucket
+  key    = "index.html"
+  source = var.index_html_filepath
+  #https://developer.hashicorp.com/terraform/language/functions/filemd5
+  etag = filemd5(var.index_html_filepath)
+}
+
+```
