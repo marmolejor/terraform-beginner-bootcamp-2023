@@ -32,3 +32,14 @@ validation {
   error_message = "The provided error_html_filepath does not point to a valid file."
 }
 }
+
+variable "content_version" {
+  description = "Version of the content. Must be a positive integer starting at 1."
+  type        = number
+
+
+validation {
+  condition  = var.content_version >= 1 && floor(var.content_version) == var.content_version
+  error_message = "The content_version must be a positive integer starting at 1."
+}
+}
