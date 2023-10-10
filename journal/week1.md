@@ -262,4 +262,52 @@ resource "aws_s3_object" "index_html" {
 }
 
 ```
+## Terraform Locals
 
+In Terraform, locals are used to define named expressions that can help simplify and make your Terraform configurations more readable. Essentially, locals provide a way to assign names to intermediate values and computations, which can then be referenced elsewhere within the same module.
+
+locals can be thought of as a mechanism for creating "local variables" or constants within your Terraform configuration.
+
+Benefits of using locals:
+- Readability: Helps in simplifying complex expressions and making the Terraform code more understandable.
+- Reusability: Reduces repetition by allowing you to define a value or computation once and reference it multiple times.
+- Organization: Helps in grouping related values or calculations, keeping your configuration organized.
+
+Example:
+
+```tf
+locals {
+  s3_origin_id = "MyS3Origin"
+}
+
+```
+
+[Local Values](https://developer.hashicorp.com/terraform/language/values/locals)
+
+### Terraform Data Sources
+
+This allows us to source data from cloud resources.
+
+This is useful when we want to reference cloud resources without importing them.
+
+```tf
+data "aws_caller_identity" "current" {}
+
+output "account_id" {
+  value = data.aws_caller_identity.current.account_id
+}
+
+```
+
+[Data Sources](https://developer.hashicorp.com/terraform/language/data-sources)
+
+## Working with JSON
+
+We use the `jsonencode` to create the json policy inline in the hcl.
+
+```tf
+> jsonencode({"hello"="world"})
+{"hello":"world"}
+```
+
+[jsonencode](https://developer.hashicorp.com/terraform/language/functions/jsonencode)
