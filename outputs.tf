@@ -12,3 +12,8 @@ output "s3_website_endpoint" {
 output "account_id" {
   value = module.terrahouse_aws.account_id
 }
+
+output "cloudfront_url"{
+ description = "The Cloudfront Distribution Domain Name"
+ value = module.terrahouse_aws.cloudfront_url
+}
