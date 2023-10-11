@@ -3,10 +3,8 @@ resource "aws_s3_bucket" "static_website" {
   # Bucket Naming Rules
   #https://docs.aws.amazon.com/AmazonS3/latest/userguide/bucketnamingrules.html 
   bucket = var.bucket_name
-
   tags = {
      UserUUid = var.user_uuid
-
    }
 }
 
@@ -32,6 +30,18 @@ resource "aws_s3_object" "index_html" {
    
   #https://developer.hashicorp.com/terraform/language/functions/filemd5
   etag = filemd5(var.index_html_filepath)
+  lifecycle {
+    replace_triggered_by = [ terraform_data.content_version ]
+    ignore_changes = [etag]
+  }
+}
+
+resource "aws_s3_object" "upload_assets" {
+  for_each = fileset(var.assets_path,"*.{jpg,png,gif,jpeg}")
+  bucket = aws_s3_bucket.static_website.bucket
+  key    = "assets/${each.key}"
+  source = "${var.assets_path}/${each.key}"
+  etag = filemd5("${var.assets_path}/${each.key}")
   lifecycle {
     replace_triggered_by = [ terraform_data.content_version ]
     ignore_changes = [etag]
@@ -80,3 +90,7 @@ resource "aws_s3_bucket_policy" "bucket_policy" {
 resource "terraform_data" "content_version" {
   input = var.content_version
 }
+
+
+
+
