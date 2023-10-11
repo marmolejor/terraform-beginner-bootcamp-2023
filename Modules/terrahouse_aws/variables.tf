@@ -36,12 +36,16 @@ validation {
 variable "content_version" {
   description = "Version of the content. Must be a positive integer starting at 1."
   type        = number
-
-
 validation {
   condition  = var.content_version >= 1 && floor(var.content_version) == var.content_version
   error_message = "The content_version must be a positive integer starting at 1."
 }
+}
+
+
+variable "assets_path" {
+  description = "Path to assets folder"
+  type        = string
 }
 
 
