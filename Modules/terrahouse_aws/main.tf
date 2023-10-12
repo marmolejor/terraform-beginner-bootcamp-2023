@@ -1,11 +1,12 @@
 terraform {
-#   cloud {
-#    organization = "juanmarmolejo"
-#     workspaces {
-#       name = "terra-house-1"
-#     }
-#   }
-  
+  cloud {
+    organization = "juanmarmolejo"
+
+    workspaces {
+      name = "terraform-cloud"
+    }
+  }
+
   required_providers {
     aws = {
       source = "hashicorp/aws"
