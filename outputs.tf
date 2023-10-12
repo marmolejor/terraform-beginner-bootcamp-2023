@@ -12,3 +12,11 @@ output "s3_website_endpoint" {
 output "account_id" {
   value = module.terrahouse_aws.account_id
 }
+
+locals {
+  root_path = path.root
+}
+
+output "root_path" {
+  value = local.root_path
+}
