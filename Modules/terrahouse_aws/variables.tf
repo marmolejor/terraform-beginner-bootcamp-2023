@@ -15,20 +15,20 @@ error_message = "Invalid bucket name, please check https://docs.aws.amazon.com/A
 }
 }
 
-variable "index_html_filepath" {
-  description = "Filepath for index.html"
-  type        = string
-validation {
-  condition  = can(fileexists(var.index_html_filepath))
-  error_message = "The provided index_html_filepath does not point to a valid file."
-}
-}
+# variable "index_html_filepath" {
+#   description = "Filepath for index.html"
+#   type        = string
+# validation {
+#   condition  = can(fileexists(var.index_html_filepath))
+#   error_message = "The provided index_html_filepath does not point to a valid file."
+# }
+# }
 
-variable "error_html_filepath" {
-  description = "Filepath for index.html"
-  type        = string
-validation {
-  condition  = can(fileexists(var.error_html_filepath))
-  error_message = "The provided error_html_filepath does not point to a valid file."
-}
-}
+# variable "error_html_filepath" {
+#   description = "Filepath for index.html"
+#   type        = string
+# validation {
+#   condition  = can(fileexists(var.error_html_filepath))
+#   error_message = "The provided error_html_filepath does not point to a valid file."
+# }
+# }
