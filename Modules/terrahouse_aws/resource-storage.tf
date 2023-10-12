@@ -6,7 +6,7 @@ resource "aws_s3_bucket" "static_website" {
 
   tags = {
      UserUUid = var.user_uuid
-     Hello = "mars"
+     Hello = "jupiter"
 
    }
 }
