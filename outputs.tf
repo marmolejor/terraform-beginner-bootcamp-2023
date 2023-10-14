@@ -8,11 +8,6 @@
 #   value       = module.terrahouse_aws.website_endpoint
 # }
 
-# #This should not be here I put it to see what happens
-# output "account_id" {
-#   value = module.terrahouse_aws.account_id
-# }
-
 # output "cloudfront_url"{
 #  description = "The Cloudfront Distribution Domain Name"
 #  value = module.terrahouse_aws.cloudfront_url
