@@ -39,12 +39,14 @@ provider "terratowns" {
 # }
 
 
-# resource "terratowns_home" "home" {
-#   name = "Why Mario Bros is the best video game to start in video games"
-#   description = <<DESCRIPTION
-# DESCRIPTION
-#   #domain_name = module.terrahouse_aws.cloudfront_url
-#   domain_name = "3fdq3gz.cloudfront.net"
-#   town = "gamers-grotto"
-#   content_version = 1
-# }
+resource "terratowns_home" "home" {
+  name = "Why Mario Bros is the best video game to get started in video games"
+  description = <<DESCRIPTION
+  The "Super Mario Bros." video games series, starting with its initial release in 1985 for the Nintendo Entertainment System (NES), 
+  is frequently heralded as a great entry point for those new to video games. 
+DESCRIPTION
+  #domain_name = module.terrahouse_aws.cloudfront_url
+  domain_name = "3fdq3gz.cloudfront.net"
+  town = "gamers-grotto"
+  content_version = 1
+}
