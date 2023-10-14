@@ -13,13 +13,13 @@ terraform {
   #    name = "terra-house-1"
   #  }
   #}
-  #cloud {
-  #  organization = "ExamPro"
-  #  workspaces {
-  #    name = "terra-house-1"
-  #  }
-  #}
+  cloud {
+    organization = "juanmarmolejo"
 
+    workspaces {
+      name = "terra-house-1"
+    }
+  }
 }
 
 provider "terratowns" {
@@ -28,16 +28,12 @@ provider "terratowns" {
   token=var.terratowns_access_token
 }
 
-module "terrahouse_aws" {
-  source      = "./Modules/terrahouse_aws"
+module "home_mario_hosting" {
+  source      = "./Modules/terrahome_aws"
   user_uuid   = var.teacherseat_user_uuid
-  bucket_name = var.bucket_name
-  index_html_filepath = var.index_html_filepath
-  error_html_filepath = var.error_html_filepath
+  public_path = var.mario.public_path
   content_version = var.content_version
-  assets_path = var.assets_path
 }
-
 
 resource "terratowns_home" "mariohome" {
   name = "Why Mario Bros is the best video game to get started in video games"
@@ -45,7 +41,27 @@ resource "terratowns_home" "mariohome" {
   The "Super Mario Bros." video games series, starting with its initial release in 1985 for the Nintendo Entertainment System (NES), 
   is frequently heralded as a great entry point for those new to video games. 
 DESCRIPTION
-  domain_name = module.terrahouse_aws.cloudfront_url
+  domain_name = module.home_mario_hosting.domain_name
   town = "missingo"
   content_version = 1
 }
+
+# module "home_mex_hosting" {
+#   source      = "./Modules/terrahome_aws"
+#   user_uuid   = var.teacherseat_user_uuid
+#   public_path = var.mex.public_path
+#   content_version = var.content_version
+# }
+
+# resource "terratowns_home" "mexcuisine" {
+#   name = "One of the best things from Mexico is the food, YOU MUST TRY IT!"
+#   description = <<DESCRIPTION
+#   Mexican cuisine was recognized by UNESCO as Intangible Cultural Heritage in 2010. This place of honor is 
+#   shared only with the Mediterranean diet and the social uses of the French and Japanese cuisines. 
+#   What does this recognition mean? That our cuisine has been passed down as a legacy through the generations 
+#   and is alive today as an expression of our identity.
+# DESCRIPTION
+#   domain_name = module.home_mex_hosting.domain_name
+#   town = "missingo"
+#   content_version = 1
+# }
