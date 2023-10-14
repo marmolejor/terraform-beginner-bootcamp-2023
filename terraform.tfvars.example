@@ -1,8 +1,10 @@
 terratowns_endpoint="https://terratowns.cloud/api"
+
 mario = {
   public_path = "/workspace/terraform-beginner-bootcamp-2023/public/mario"
   content_version = 2 
 }
+
 mex = {
   public_path = "/workspace/terraform-beginner-bootcamp-2023/public/mex"
   content_version = 1 

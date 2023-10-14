@@ -38,13 +38,13 @@ resource "aws_s3_object" "index_html" {
 }
 
 resource "aws_s3_object" "upload_assets" {
-  for_each = fileset("${var.public_path}/assets","*.{jpg,png,gif,jpeg}")
+  for_each = fileset("${var.public_path}/assets","*.{jpeg,png,gif}")
   bucket = aws_s3_bucket.static_website.bucket
   key    = "assets/${each.key}"
-  source = "${var.public_path}/${each.key}"
+  source = "${var.public_path}/assets/${each.key}"
   etag = filemd5("${var.public_path}/assets/${each.key}")
   lifecycle {
-    replace_triggered_by = [ terraform_data.content_version ]
+    replace_triggered_by = [terraform_data.content_version.output]
     ignore_changes = [etag]
   }
 }
