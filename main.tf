@@ -44,7 +44,7 @@ resource "terratowns_home" "mario-home" {
   in other equal or more complex games.
 DESCRIPTION
   domain_name = module.home_mario_hosting.domain_name
-  town = "missingo"
+  town = "gamers-grotto"
   content_version = var.mario.content_version
 }
 
@@ -64,6 +64,6 @@ resource "terratowns_home" "mex-cuisine" {
   and is alive today as an expression of our identity.
 DESCRIPTION
   domain_name = module.home_mex_hosting.domain_name
-  town = "missingo"
+  town = "the-nomad-pad"
   content_version = var.mex.content_version
 }
