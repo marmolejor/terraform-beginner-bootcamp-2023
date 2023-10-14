@@ -39,7 +39,9 @@ resource "terratowns_home" "mario-home" {
   name = "Why Mario Bros is the best video game to get started in video games"
   description = <<DESCRIPTION
   The "Super Mario Bros." video games series, starting with its initial release in 1985 for the Nintendo Entertainment System (NES), 
-  is frequently heralded as a great entry point for those new to video games. 
+  is frequently heralded as a great entry point for those new to video games due to its Simplicity, Intuitive Design, Progressive Difficulty, 
+  Iconic Characters and Themes, Memorable Music and Sound, Family-Friendly and all these builds a solid foundation to start playing and being successful
+  in other equal or more complex games.
 DESCRIPTION
   domain_name = module.home_mario_hosting.domain_name
   town = "missingo"
@@ -54,7 +56,7 @@ module "home_mex_hosting" {
 }
 
 resource "terratowns_home" "mex-cuisine" {
-  name = "One of the best things from Mexico is the food, YOU MUST TRY IT!"
+  name = "One of the best things from Mexico is the food, if you travel to Mexico, YOU MUST TRY IT!"
   description = <<DESCRIPTION
   Mexican cuisine was recognized by UNESCO as Intangible Cultural Heritage in 2010. This place of honor is 
   shared only with the Mediterranean diet and the social uses of the French and Japanese cuisines. 
